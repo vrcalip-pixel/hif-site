@@ -229,11 +229,6 @@ body.lit .orb::before{inset:-95%;opacity:.8}
 .exp h3{margin:0 0 .3rem}
 .exp p{margin:0}
 .pairs b{color:#fff;font-weight:600}
-.agenda{display:grid;grid-template-columns:5.6rem 1fr;gap:.55rem 1rem;margin:.4rem 0 1rem}
-.agenda dt{font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap}
-.agenda dd{margin:0;color:var(--ink-2)}
-.agenda dd b{display:block;color:#fff;font-weight:600}
-.agenda dd span{display:block;font-size:.92rem}
 .exp.feature{background:linear-gradient(90deg,rgba(31,79,203,.35),rgba(228,72,60,.18));border-color:rgba(59,180,255,.4)}
 .tier{border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem;margin-bottom:.75rem;background:rgba(255,255,255,.03)}
 .tier.top{background:linear-gradient(135deg,rgba(233,179,60,.22),rgba(31,79,203,.25));border-color:rgba(233,179,60,.55)}
@@ -256,8 +251,11 @@ body.lit .orb::before{inset:-95%;opacity:.8}
 form{display:grid;gap:.9rem;margin-top:.5rem}
 .field{display:grid;gap:.3rem}
 label{font-weight:600;font-size:.92rem}
-input,select{font:inherit;padding:.7rem .85rem;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.06);color:#fff;min-height:44px}
+input,select,textarea{font:inherit;padding:.7rem .85rem;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.06);color:#fff;min-height:44px}
 select option{color:#000}
+textarea{resize:vertical;min-height:88px}
+label .opt{font-weight:400;color:var(--ink-2)}
+[hidden]{display:none!important}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
 .status{display:none;padding:.9rem 1rem;border-radius:8px;background:rgba(59,180,255,.14);border:1px solid var(--sky)}
 .status.show{display:block}
@@ -328,16 +326,16 @@ footer a{color:#fff}
 
         <!-- nodes: data-d = depth, data-x/data-y = position (% of viewport) -->
         <div class="node coral" data-d="420" data-x="28" data-y="30" data-key="expect" style="--s:76px">
-          <a href="#expect"><span class="orb"></span><span class="tag">What to expect<small>Activation Hubs, agenda, the day</small></span></a>
+          <a href="#expect"><span class="orb"></span><span class="tag">About<small>Why this festival</small></span></a>
         </div>
         <div class="node blue" data-d="680" data-x="17" data-y="66" data-key="students" style="--s:88px">
-          <a href="#students"><span class="orb"></span><span class="tag">Students<small>What did the employer learn about me?</small></span></a>
+          <a href="#students"><span class="orb"></span><span class="tag">Students<small>Who it&#39;s for</small></span></a>
         </div>
         <div class="node white" data-d="900" data-x="55" data-y="72" data-key="faculty" style="--s:56px">
-          <a href="#faculty"><span class="orb"></span><span class="tag">Faculty<small>What must students practice first?</small></span></a>
+          <a href="#faculty"><span class="orb"></span><span class="tag">Faculty &amp; College Leaders<small>Who it&#39;s for</small></span></a>
         </div>
         <div class="node sky" data-d="1080" data-x="76" data-y="34" data-key="employers" style="--s:80px">
-          <a href="#employers"><span class="orb"></span><span class="tag">Employers<small>Would our hiring reveal any of this?</small></span></a>
+          <a href="#employers"><span class="orb"></span><span class="tag">Industry<small>Who it&#39;s for</small></span></a>
         </div>
         <div class="node gold" data-d="1280" data-x="82" data-y="66" data-key="sponsor" style="--s:110px">
           <a href="#sponsor"><span class="orb"></span><span class="tag">Sponsor the festival<small>Diamond through Marble</small></span></a>
@@ -389,20 +387,20 @@ footer a{color:#fff}
           <span class="sr" data-cd-sr></span>
         </div>
   <ul>
-    <li><a href="#expect"><span class="orb node coral" style="--s:22px;--c1:#FF8A7A;--c2:#E4483C;--c3:#8E1F16"></span>What to expect</a></li>
+    <li><a href="#expect"><span class="orb node coral" style="--s:22px;--c1:#FF8A7A;--c2:#E4483C;--c3:#8E1F16"></span>About</a></li>
     <li><a href="#students"><span class="orb" style="--s:22px;--c1:#7FB2FF;--c2:#2D7BE5;--c3:#0E2C7A"></span>Students</a></li>
-    <li><a href="#faculty"><span class="orb" style="--s:22px;--c1:#fff;--c2:#E6E9F2;--c3:#8C95AD"></span>Faculty</a></li>
-    <li><a href="#employers"><span class="orb" style="--s:22px;--c1:#9BDDFF;--c2:#3BB4FF;--c3:#0E5A86"></span>Employers</a></li>
+    <li><a href="#faculty"><span class="orb" style="--s:22px;--c1:#fff;--c2:#E6E9F2;--c3:#8C95AD"></span>Faculty &amp; College Leaders</a></li>
+    <li><a href="#employers"><span class="orb" style="--s:22px;--c1:#9BDDFF;--c2:#3BB4FF;--c3:#0E5A86"></span>Industry</a></li>
     <li><a href="#sponsor"><span class="orb" style="--s:22px;--c1:#F7D06A;--c2:#E9B33C;--c3:#9A6F14"></span>Sponsor the festival</a></li>
     <li><a href="#register"><span class="orb" style="--s:22px;--c1:#FFE39A;--c2:#F2C35A;--c3:#A67A1E"></span>Register</a></li>
   </ul>
 </main>
 
 <nav class="compass" aria-label="Festival menu">
-  <a href="#expect" data-key="expect" style="--c:#E4483C"><span>What to expect</span><i></i></a>
+  <a href="#expect" data-key="expect" style="--c:#E4483C"><span>About</span><i></i></a>
   <a href="#students" data-key="students" style="--c:#2D7BE5"><span>Students</span><i></i></a>
-  <a href="#faculty" data-key="faculty" style="--c:#E6E9F2"><span>Faculty</span><i></i></a>
-  <a href="#employers" data-key="employers" style="--c:#3BB4FF"><span>Employers</span><i></i></a>
+  <a href="#faculty" data-key="faculty" style="--c:#E6E9F2"><span>Faculty &amp; College Leaders</span><i></i></a>
+  <a href="#employers" data-key="employers" style="--c:#3BB4FF"><span>Industry</span><i></i></a>
   <a href="#sponsor" data-key="sponsor" style="--c:#E9B33C"><span>Sponsor</span><i></i></a>
   <a href="#register" data-key="register" style="--c:#F2C35A"><span>Register</span><i></i></a>
 </nav>
@@ -411,7 +409,7 @@ footer a{color:#fff}
 <div class="overlay" id="ov-expect" role="dialog" aria-modal="true" aria-labelledby="h-expect">
   <div class="bg" data-close></div>
   <div class="panel">
-    <div class="head"><span class="orb node coral" style="--s:40px"></span><h2 id="h-expect">What to expect</h2><button class="close" data-close aria-label="Close">✕</button></div>
+    <div class="head"><span class="orb node coral" style="--s:40px"></span><h2 id="h-expect">About</h2><button class="close" data-close aria-label="Close">✕</button></div>
     <p class="q">This is not your ordinary A.I. event.</p>
     <p class="big">It's a Human Intelligence experience — bold, immersive, and unapologetically human-first. Because the future of work deserves more than another AI conference.</p>
     <p>This year the Los Angeles Regional Consortium is flipping the AI narrative by highlighting and celebrating the irreplaceable role of human intelligence in an A.I.-driven world. The festival will demonstrate how human traits such as critical thinking, empathy, creativity, judgment, and ethics complement and elevate the use of artificial intelligence in education and workforce development.</p>
@@ -438,30 +436,6 @@ footer a{color:#fff}
     </ul>
     <p>The Human Intelligence Festival isn't just a conversation — it's a real-time research engine.</p>
 
-    <h3>The experience</h3>
-    <div class="exp feature"><h3>Intelligence Activation Hubs</h3><p>Unlike anything you've experienced at any other A.I. summit or convening in the nation. Through a series of deeply facilitated Shift Sessions, we're collecting rich, qualitative data on how A.I. is reshaping learning, motivation, ethics, literacy, and the workplace. Each session is facilitated, focused, and built around collaboration — not presentations. Hub topics will be announced soon.</p></div>
-    <div class="exp"><h3>The Application Experience</h3><p>The application is the interview. Take the candidate's seat in a conversational application designed to reveal how you think, decide, use AI, and respond to real-world challenges — then debrief on what the employer actually learned about you. Everyone leaves with a Human Signal Card: a pocket framework for making your contribution visible in future interviews and portfolios.</p></div>
-    <div class="exp"><h3>Interactive Employer Panel</h3><p>Employers take on the festival's central question, live and interactive: what makes a human hirable in an A.I. world?</p></div>
-    <div class="exp"><h3>Lunch &amp; Launch: the A.I. Learning Library</h3><p>The hard launch of the A.I. Learning Library, over lunch.</p></div>
-    <div class="exp"><h3>Innovation exhibitor floor</h3><p>Meet the companies and organizations shaping AI-era work in Los Angeles, and the tools they're building it with.</p></div>
-    <div class="exp"><h3>Live challenges and games</h3><p>Team scavenger hunts, a running trivia leaderboard, and a "Think Tank" of workplace questions worth arguing about.</p></div>
-    <div class="exp"><h3>Festival atmosphere</h3><p>Breakfast, lunch, and afternoon snacks are on us — expect popcorn, churros, and a room that looks like a festival.</p></div>
-    <h3>Agenda</h3>
-    <dl class="agenda">
-      <dt>8:00 AM</dt><dd><b>Check-in</b></dd>
-      <dt>8:45 AM</dt><dd><b>Welcome</b><span>Dr. Narineh Makijan</span></dd>
-      <dt>9:00 AM</dt><dd><b>Welcome from our top sponsor</b><span>Jennie Magiera, Google</span></dd>
-      <dt>9:20 AM</dt><dd><b>Keynote presentation</b><span>Keynote speaker to be announced</span></dd>
-      <dt>10:00 AM</dt><dd><b>Interactive Employer Panel</b><span>What Makes a Human Hirable in an A.I. World?</span></dd>
-      <dt>10:30 AM</dt><dd><b>Break</b><span>Head to an Intelligence Activation Hub</span></dd>
-      <dt>10:45 AM</dt><dd><b>Intelligence Activation Hub sessions</b></dd>
-      <dt>12:20 PM</dt><dd><b>Lunch &amp; Launch</b><span>A.I. Learning Library hard launch</span></dd>
-      <dt>1:15 PM</dt><dd><b>A.I. Workforce Data Insights + Q&amp;A</b><span>Luke Meyer, Director, L.A. Center of Excellence</span></dd>
-      <dt>1:50 PM</dt><dd><b>Break</b><span>Head to an Intelligence Activation Hub</span></dd>
-      <dt>2:00 PM</dt><dd><b>Intelligence Activation Hub sessions</b></dd>
-      <dt>3:30 PM</dt><dd><b>Closing remarks and raffle</b><span>Dr. Narineh Makijan</span></dd>
-    </dl>
-    <p class="fine">Agenda is subject to change. Intelligence Activation Hub topics will be posted once they're set.</p>
     <div class="btns" style="justify-content:flex-start;margin-top:1rem"><a class="btn btn-gold" href="#register">Register for free</a></div>
   </div>
 </div>
@@ -470,14 +444,9 @@ footer a{color:#fff}
   <div class="bg" data-close></div>
   <div class="panel">
     <div class="head"><span class="orb node blue" style="--s:40px"></span><h2 id="h-students">Who it's for</h2><button class="close" data-close aria-label="Close">✕</button></div>
-    <div class="switch"><a href="#students" class="cur">Students</a><a href="#faculty">Faculty</a><a href="#employers">Employers</a></div>
-    <p class="q">"What did the employer learn about me?"</p>
+    <div class="switch"><a href="#students" class="cur">Students</a><a href="#faculty">Faculty &amp; College Leaders</a><a href="#employers">Industry</a></div>
     <p class="big">You're preparing to shape the future of work — and you must learn to use AI while demonstrating the human capabilities technology cannot replace.</p>
-    <p>When anyone can generate an impressive résumé, cover letter, or presentation, how does an employer recognize the person who exercised impressive judgment?</p>
-    <p>Step into a new kind of application experience and see which of your judgment, knowledge, values, and decisions became visible — and which didn't. You'll leave with a Human Signal Card you can reuse for interviews, portfolios, and applications:</p>
-    <ul><li>I noticed…</li><li>I questioned…</li><li>I connected…</li><li>I rejected or revised…</li><li>I decided…</li><li>I would stand behind…</li><li>I would want the employer to understand about me…</li></ul>
-    <p>Registration is free for students from all 19 LA County community colleges. Breakfast, lunch, and snacks are included.</p>
-    <div class="btns" style="justify-content:flex-start"><a class="btn btn-gold" href="#register">Register for free</a><a class="btn btn-ghost" href="#expect">See the day</a></div>
+    <div class="btns" style="justify-content:flex-start"><a class="btn btn-gold" href="#register">Register for free</a></div>
   </div>
 </div>
 
@@ -485,12 +454,9 @@ footer a{color:#fff}
   <div class="bg" data-close></div>
   <div class="panel">
     <div class="head"><span class="orb node white" style="--s:40px"></span><h2 id="h-faculty">Who it's for</h2><button class="close" data-close aria-label="Close">✕</button></div>
-    <div class="switch"><a href="#students">Students</a><a href="#faculty" class="cur">Faculty</a><a href="#employers">Employers</a></div>
-    <p class="q">"What must students practice before entering this experience?"</p>
-    <p class="big">K-16 faculty prepare talent: you help students strengthen the knowledge, judgment, and adaptability needed for an AI-enabled workplace. If the application is the interview, the assignment is the rehearsal.</p>
-    <p>Go through the same Application Experience your students will face, then consider whether your current assignments help students develop discernment, reasoning, verification, communication, and responsibility — not simply polished outputs.</p>
-    <p>In the Intelligence Activation Hubs — facilitated Shift Sessions built around collaboration, not presentations — work alongside students and employers on how A.I. is reshaping learning, motivation, ethics, literacy, and the workplace.</p>
-    <div class="btns" style="justify-content:flex-start"><a class="btn btn-gold" href="#register">Register for free</a><a class="btn btn-ghost" href="#expect">See the day</a></div>
+    <div class="switch"><a href="#students">Students</a><a href="#faculty" class="cur">Faculty &amp; College Leaders</a><a href="#employers">Industry</a></div>
+    <p class="big">K-16 faculty prepare talent: you help students strengthen the knowledge, judgment, and adaptability needed for an AI-enabled workplace.</p>
+    <div class="btns" style="justify-content:flex-start"><a class="btn btn-gold" href="#register">Register for free</a></div>
   </div>
 </div>
 
@@ -498,12 +464,8 @@ footer a{color:#fff}
   <div class="bg" data-close></div>
   <div class="panel">
     <div class="head"><span class="orb node sky" style="--s:40px"></span><h2 id="h-employers">Who it's for</h2><button class="close" data-close aria-label="Close">✕</button></div>
-    <div class="switch"><a href="#students">Students</a><a href="#faculty">Faculty</a><a href="#employers" class="cur">Employers</a></div>
-    <p class="q">"Would our current hiring process reveal any of this?"</p>
+    <div class="switch"><a href="#students">Students</a><a href="#faculty">Faculty &amp; College Leaders</a><a href="#employers" class="cur">Industry</a></div>
     <p class="big">Employers who build teams understand the capabilities that help people succeed at work. Can you see how a candidate thinks — not just what they submitted?</p>
-    <p>Join the Interactive Employer Panel, <i>What Makes a Human Hirable in an A.I. World?</i></p>
-    <p>Examine whether résumés, cover letters, automated screenings, and conventional interviews still measure what you think they measure — and meet the talent pipeline of LA County's 19 community colleges in one room.</p>
-    <p>Employers can attend, exhibit, or sponsor. Exhibitor tables start at the Bronze level.</p>
     <div class="btns" style="justify-content:flex-start"><a class="btn btn-gold" href="#sponsor">Sponsor or exhibit</a><a class="btn btn-ghost" href="#register">Register to attend</a></div>
   </div>
 </div>
@@ -554,9 +516,11 @@ footer a{color:#fff}
         <div class="field"><label for="ln">Last name</label><input id="ln" name="last" autocomplete="family-name" required></div>
       </div>
       <div class="field"><label for="em">Email</label><input id="em" name="email" type="email" autocomplete="email" required></div>
-      <div class="field"><label for="org">College or organization</label><input id="org" name="org" autocomplete="organization" required></div>
-      <div class="field"><label for="role">I'm attending as</label>
-        <select id="role" name="role" required><option value="">Choose one</option><option>Student</option><option>Faculty</option><option>College staff or administrator</option><option>Employer or industry partner</option><option>Other</option></select></div>
+      <div class="field"><label for="org">College, organization, or company</label><input id="org" name="org" autocomplete="organization" required></div>
+      <div class="field"><label for="role">Which best describes you?</label>
+        <select id="role" name="role" required><option value="">Choose one</option><option value="Student">Student</option><option value="Faculty">Faculty</option><option value="Employer/Industry Partner">Employer/Industry Partner</option><option value="College Administrator/Leader">College Leader/Administrator</option><option value="Workforce or Career Services Professional">Workforce/Career Services Professional</option><option value="Community/Education Partner">Community/Education Partner</option><option value="__other_option__">Other</option></select></div>
+      <div class="field" id="role-other-wrap" hidden><label for="role-other">Please specify</label><input id="role-other" name="role_other"></div>
+      <div class="field"><label for="notes">Comments or questions <span class="opt">(optional)</span></label><textarea id="notes" name="notes" rows="3"></textarea></div>
       <div><button class="btn btn-gold" type="submit">Reserve my spot</button></div>
       <div class="status" id="status" role="status" aria-live="polite"></div>
     </form>
@@ -618,16 +582,37 @@ footer a{color:#fff}
   });
   var initial=location.hash.slice(1); if(keys.indexOf(initial)>=0) setTimeout(function(){open(initial,false);},250);
 
-  /* ---------- registration (prototype) ---------- */
+  /* ---------- registration: submits to the LARC Google Form ("Be First To Know") ---------- */
+  var FORM_ACTION='https://docs.google.com/forms/d/e/1FAIpQLSfXO4Ui6VOEH2kNzYEYlYlLYVVcdT58Uf5q25PXfI2aRMUqUQ/formResponse';
+  var ENTRY={first:'entry.528118694', last:'entry.1752306564', org:'entry.1785068156', role:'entry.510656810', notes:'entry.1573570539'};
   var form=document.getElementById('regform'), status=document.getElementById('status');
+  var roleSel=document.getElementById('role'), otherWrap=document.getElementById('role-other-wrap'), otherIn=document.getElementById('role-other');
+  function say(msg){ status.className='status show'; status.textContent=msg; }
+  roleSel.addEventListener('change',function(){
+    var other=roleSel.value==='__other_option__';
+    otherWrap.hidden=!other; otherIn.required=other; if(other) otherIn.focus();
+  });
   form.addEventListener('submit',function(e){
     e.preventDefault();
     var missing=[].filter.call(form.querySelectorAll('[required]'),function(el){return !el.value.trim();});
-    if(missing.length){status.className='status show';status.textContent='Please fill in every field before reserving your spot.';missing[0].focus();return;}
+    if(missing.length){ say('Please fill in every required field before reserving your spot.'); missing[0].focus(); return; }
     var em=document.getElementById('em');
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em.value)){status.className='status show';status.textContent='That email address doesn\'t look right — check it and try again.';em.focus();return;}
-    status.className='status show';
-    status.textContent='Prototype only: this form is not connected yet. On the live LARC site it will hand off to the registration system.';
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em.value.trim())){ say('That email address doesn\'t look right. Check it and try again.'); em.focus(); return; }
+    var v=function(id){ return document.getElementById(id).value.trim(); };
+    var data=new URLSearchParams();
+    data.append('emailAddress',v('em'));
+    data.append(ENTRY.first,v('fn')); data.append(ENTRY.last,v('ln')); data.append(ENTRY.org,v('org'));
+    data.append(ENTRY.role,roleSel.value);
+    if(roleSel.value==='__other_option__') data.append(ENTRY.role+'.other_option_response',v('role-other'));
+    if(v('notes')) data.append(ENTRY.notes,v('notes'));
+    var btn=form.querySelector('button[type=submit]'); btn.disabled=true; say('Sending…');
+    // Google Forms does not return CORS headers, so the response is opaque; a network failure still rejects.
+    fetch(FORM_ACTION,{method:'POST',mode:'no-cors',body:data}).then(function(){
+      var name=v('fn'); form.reset(); otherWrap.hidden=true; otherIn.required=false;
+      say('Thank you, '+name+'! You\'re on the list. We\'ll email event details and official registration updates as November 6 approaches.');
+    }).catch(function(){
+      say('Something went wrong sending your registration. Please try again, or email nmakijan@pasadena.edu.');
+    }).then(function(){ btn.disabled=false; });
   });
 
   /* ---------- ambiance: light + music ---------- */
