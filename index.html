@@ -158,6 +158,32 @@ body.lit .orb::before{inset:-95%;opacity:.8}
 @keyframes cue{0%{transform:scaleY(0);transform-origin:top;opacity:0}40%{transform:scaleY(1);transform-origin:top;opacity:1}41%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom;opacity:.4}}
 @media (prefers-reduced-motion:reduce){.cue i{animation:none}}
 
+/* countdown */
+.countdown{margin:1.35rem auto 0;text-align:center}
+.cd-label{display:flex;align-items:center;justify-content:center;gap:.8rem;margin-bottom:.75rem;color:var(--gold);font-size:.7rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase}
+.cd-label::before,.cd-label::after{content:"";height:1px;width:clamp(22px,6vw,56px);background:linear-gradient(90deg,rgba(233,179,60,0),rgba(233,179,60,.75))}
+.cd-label::after{transform:scaleX(-1)}
+.cd-grid{display:flex;justify-content:center;align-items:flex-start;gap:clamp(.3rem,1.1vw,.65rem)}
+.cd-unit{min-width:clamp(3.5rem,10vw,4.9rem);padding:.65rem .45rem .5rem;border-radius:12px;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.13);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 10px 30px rgba(0,0,0,.25)}
+.cd-num{display:flex;justify-content:center;font-weight:700;font-size:clamp(1.55rem,3.5vw,2.35rem);line-height:1;color:#fff;letter-spacing:.01em}
+.cd-s .cd-num{color:var(--gold);text-shadow:0 0 18px rgba(233,179,60,.35)}
+.dg{position:relative;display:inline-block;width:.6em;height:1.05em;overflow:hidden}
+.dg b{position:absolute;inset:0;font-weight:inherit;text-align:center}
+.dg b.in{animation:dgIn .5s cubic-bezier(.2,.75,.25,1) both}
+.dg b.out{animation:dgOut .5s cubic-bezier(.2,.75,.25,1) both}
+@keyframes dgIn{from{transform:translateY(-95%);opacity:0;filter:blur(2px)}to{transform:none;opacity:1;filter:none}}
+@keyframes dgOut{to{transform:translateY(95%);opacity:0;filter:blur(2px)}}
+.cd-cap{margin-top:.45rem;font-size:.62rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
+.cd-sep{align-self:center;flex:none;width:4px;height:4px;margin-top:-1.05rem;border-radius:50%;background:var(--gold);box-shadow:0 0 8px rgba(233,179,60,.9);animation:sepPulse 1s ease-in-out infinite}
+@keyframes sepPulse{50%{opacity:.35}}
+.countdown.live .cd-grid{display:none}
+.countdown.live .cd-label{font-size:.85rem}
+.countdown.over{display:none}
+@media (prefers-reduced-motion:reduce){.dg b.in,.dg b.out,.cd-sep{animation:none}.dg b.out{display:none}}
+.final .countdown{margin:1rem auto .2rem}
+
 /* final card */
 .final{position:absolute;inset:0;display:grid;place-items:center;padding:1.5rem;pointer-events:none;opacity:0;visibility:hidden}
 .final .card{pointer-events:auto;background:rgba(6,17,40,.9);border:1px solid var(--line);border-radius:22px;padding:2rem 2.25rem;max-width:560px;text-align:center}
@@ -326,6 +352,11 @@ footer a{color:#fff}
       <div class="plate">
         <h1>Human Intelligence<span>Festival</span></h1>
         <p>November 6, 2026 · <svg class="mb" role="img" aria-label="Magic Box" viewBox="0 0 714 102"><use href="#mb-wordmark"/></svg>, Downtown Los Angeles · Presented by LARC</p>
+        <div class="countdown" data-countdown role="timer">
+          <div class="cd-label"><span data-cd-label>Doors open in</span></div>
+          <div class="cd-grid" aria-hidden="true"><div class="cd-unit cd-d"><div class="cd-num" data-u="d"></div><div class="cd-cap">Days</div></div><i class="cd-sep"></i><div class="cd-unit cd-h"><div class="cd-num" data-u="h"></div><div class="cd-cap">Hours</div></div><i class="cd-sep"></i><div class="cd-unit cd-m"><div class="cd-num" data-u="m"></div><div class="cd-cap">Minutes</div></div><i class="cd-sep"></i><div class="cd-unit cd-s"><div class="cd-num" data-u="s"></div><div class="cd-cap">Seconds</div></div></div>
+          <span class="sr" data-cd-sr></span>
+        </div>
       </div>
     </div>
     <div class="cue" id="cue"><i></i>Scroll to enter</div>
@@ -333,6 +364,11 @@ footer a{color:#fff}
     <div class="final" id="final">
       <div class="card">
         <div class="date">Nov 6</div>
+        <div class="countdown" data-countdown role="timer">
+          <div class="cd-label"><span data-cd-label>Doors open in</span></div>
+          <div class="cd-grid" aria-hidden="true"><div class="cd-unit cd-d"><div class="cd-num" data-u="d"></div><div class="cd-cap">Days</div></div><i class="cd-sep"></i><div class="cd-unit cd-h"><div class="cd-num" data-u="h"></div><div class="cd-cap">Hours</div></div><i class="cd-sep"></i><div class="cd-unit cd-m"><div class="cd-num" data-u="m"></div><div class="cd-cap">Minutes</div></div><i class="cd-sep"></i><div class="cd-unit cd-s"><div class="cd-num" data-u="s"></div><div class="cd-cap">Seconds</div></div></div>
+          <span class="sr" data-cd-sr></span>
+        </div>
         <p class="close-line">Together, let's help people become the kind of humans the future of work needs.</p>
         <div class="where"><b>Friday, 2026 · Check-in 8 AM · Closing 3:30 PM</b><svg class="mb" role="img" aria-label="Magic Box" viewBox="0 0 714 102"><use href="#mb-wordmark"/></svg> at The Reef · 1933 S. Broadway, DTLA<br>Presented by the Los Angeles Regional Consortium and our sponsors</div>
         <div class="btns"><a class="btn btn-gold" href="#register">Register for free</a><a class="btn btn-ghost" href="#sponsor">Become a sponsor</a></div>
@@ -347,6 +383,11 @@ footer a{color:#fff}
   <h1 style="margin:0 0 .3rem">Human Intelligence Festival</h1>
   <p style="color:#fff;font-weight:600;margin:0 0 .4rem">Hiring Humans. The human advantage: exploring the capabilities that help people learn, lead, and succeed in an AI-enabled world.</p>
   <p style="color:var(--ink-2)">Friday, November 6, 2026 · Check-in 8 AM, closing 3:30 PM · <svg class="mb" role="img" aria-label="Magic Box" viewBox="0 0 714 102"><use href="#mb-wordmark"/></svg> at The Reef, Downtown Los Angeles. Presented by the Los Angeles Regional Consortium.</p>
+  <div class="countdown" data-countdown role="timer">
+          <div class="cd-label"><span data-cd-label>Doors open in</span></div>
+          <div class="cd-grid" aria-hidden="true"><div class="cd-unit cd-d"><div class="cd-num" data-u="d"></div><div class="cd-cap">Days</div></div><i class="cd-sep"></i><div class="cd-unit cd-h"><div class="cd-num" data-u="h"></div><div class="cd-cap">Hours</div></div><i class="cd-sep"></i><div class="cd-unit cd-m"><div class="cd-num" data-u="m"></div><div class="cd-cap">Minutes</div></div><i class="cd-sep"></i><div class="cd-unit cd-s"><div class="cd-num" data-u="s"></div><div class="cd-cap">Seconds</div></div></div>
+          <span class="sr" data-cd-sr></span>
+        </div>
   <ul>
     <li><a href="#expect"><span class="orb node coral" style="--s:22px;--c1:#FF8A7A;--c2:#E4483C;--c3:#8E1F16"></span>What to expect</a></li>
     <li><a href="#students"><span class="orb" style="--s:22px;--c1:#7FB2FF;--c2:#2D7BE5;--c3:#0E2C7A"></span>Students</a></li>
@@ -834,6 +875,44 @@ footer a{color:#fff}
       ry(x*5); rx(-y*4);
     });
   }
+})();
+</script>
+<script>
+/* ---------- countdown to check-in: Fri Nov 6 2026, 8:00 AM Pacific (PST, UTC-8) ---------- */
+(function(){
+  var START=Date.UTC(2026,10,6,16,0,0), END=Date.UTC(2026,10,6,23,30,0);   // 8:00 AM - 3:30 PM PST
+  var boxes=[].slice.call(document.querySelectorAll('[data-countdown]')); if(!boxes.length) return;
+  function pad(n){ return (n<10?'0':'')+n; }
+  // write a value digit-by-digit; changed digits roll in from above
+  function setNum(el,str){
+    var cells=el.children;
+    while(cells.length<str.length){ var c=document.createElement('span'); c.className='dg'; c.appendChild(document.createElement('b')); el.insertBefore(c,el.firstChild); }
+    while(cells.length>str.length) el.removeChild(el.firstChild);
+    for(var i=0;i<str.length;i++){
+      var cell=cells[i], cur=cell.lastElementChild;
+      if(cur.textContent===str[i]) continue;
+      if(cur.textContent===''){ cur.textContent=str[i]; continue; }   // first paint: no animation
+      var nx=document.createElement('b'); nx.textContent=str[i]; nx.className='in';
+      cur.className='out'; cell.appendChild(nx);
+      setTimeout(function(o){ return function(){ if(o.parentNode) o.parentNode.removeChild(o); }; }(cur),520);
+    }
+  }
+  var lastSr='';
+  function tick(){
+    var now=Date.now(), left=START-now;
+    boxes.forEach(function(b){
+      if(now>=END){ b.classList.add('over'); return; }
+      if(left<=0){ b.classList.add('live'); b.querySelector('[data-cd-label]').textContent='Happening now at Magic Box'; return; }
+      var s=Math.floor(left/1000), d=Math.floor(s/86400), h=Math.floor(s%86400/3600), m=Math.floor(s%3600/60), sec=s%60;
+      setNum(b.querySelector('[data-u="d"]'),pad(d)); setNum(b.querySelector('[data-u="h"]'),pad(h));
+      setNum(b.querySelector('[data-u="m"]'),pad(m)); setNum(b.querySelector('[data-u="s"]'),pad(sec));
+      var sr=d+' days, '+h+' hours and '+m+' minutes until doors open on November 6';
+      if(sr!==lastSr){ b.querySelector('[data-cd-sr]').textContent=sr; }
+    });
+    lastSr=boxes.length?boxes[0].querySelector('[data-cd-sr]').textContent:'';
+    setTimeout(tick,1000-(Date.now()%1000)+5);        // stay aligned to the second boundary
+  }
+  tick();
 })();
 </script>
 </body>
