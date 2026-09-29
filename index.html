@@ -31,6 +31,7 @@ button{font:inherit}
 .bar{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.4rem;pointer-events:none}
 .bar>*{pointer-events:auto}
 .brand{display:flex;align-items:center;gap:.6rem;font-weight:700;text-decoration:none;font-size:1rem;color:#fff}
+.brand img{display:block;height:clamp(38px,4.6vw,54px);width:auto;filter:drop-shadow(0 2px 10px rgba(3,9,24,.55))}
 .brand i{width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(233,179,60,.22)}
 .bar nav{display:flex;gap:.4rem}
 .bar nav a{font-size:.9rem;font-weight:500;color:var(--ink-2);text-decoration:none;padding:.5rem .7rem;border-radius:999px;min-height:44px;display:inline-flex;align-items:center}
@@ -251,7 +252,7 @@ footer a{color:#fff}
 <a class="sr" href="#menu">Skip to festival menu</a>
 
 <header class="bar">
-  <a class="brand" href="#top">Human Intelligence Festival</a>
+  <a class="brand" href="https://losangelesrc.org/" target="_blank" rel="noopener"><img src="assets/larc-logo.png" width="623" height="215" alt="LARC, Los Angeles Regional Consortium (opens in a new tab)"></a>
   <div style="display:flex;gap:.5rem;align-items:center">
     <a class="btn btn-gold" href="#register" style="padding:.65rem 1.1rem;font-size:.9rem">Register</a>
     <button class="amb-btn" id="ambBtn" type="button" aria-pressed="false"><span class="lbl">Ambiance</span></button>
@@ -724,14 +725,19 @@ footer a{color:#fff}
       var gone = z>P*0.85;               // behind you now
       el.style.opacity=1; el.style.visibility=gone?'hidden':'visible';
       el.style.pointerEvents=gone?'none':'';
+      // where the orb actually lands on screen (same projection the browser draws), for touch hit-testing
+      var k=P/Math.max(P-z,1), tx=fx*(P-z)/P, ty=fy*(P-z)/P;
+      el._hit={x:SW/2+(SW*sx/100+tx-SW/2)*k, y:SH/2+(SH*sy/100+ty-SH/2)*k, r:el._r*sN*k, z:z, live:!gone};
     }else{
       el.style.transform='translate3d(0,0,'+z+'px)';
       el.style.opacity=op; el.style.visibility=op<=0.02?'hidden':'visible';
     }
   }
-  var state={p:0};
+  var state={p:0}, stageEl=document.querySelector('.stage'), SW=0, SH=0;
+  nodes.forEach(function(n){ n._r=(parseFloat(n.style.getPropertyValue('--s'))||72)/2; });
   function render(){
     var p=state.p, cam=p*TRAVEL;
+    SW=stageEl.clientWidth; SH=stageEl.clientHeight;
     layers.forEach(function(l){ place(l,+l.dataset.d,cam,false); });
     nodes.forEach(function(n){ place(n,+n.dataset.d,cam,true); });
     var t=Math.max(0,1-p/0.11); title.style.opacity=t; dim.style.opacity=Math.max(0,1-p/0.55); title.style.transform='translateY('+(-40*(1-t))+'px) scale('+(1+0.08*(1-t))+')';
@@ -743,6 +749,33 @@ footer a{color:#fff}
   }
   gsap.to(state,{p:1,ease:'none',scrollTrigger:{trigger:'#scene',start:'top top',end:'bottom bottom',scrub:0.8}});
   (function loop(ts){ now=ts||0; render(); requestAnimationFrame(loop); })(0);
+
+  // Touch taps: decide which orb was tapped from the projection computed above instead of the browser's
+  // hit-testing of 3D-transformed elements, which iOS Safari gets wrong (taps land on a neighbouring orb).
+  var tap=null, swallow=0;
+  function orbAt(x,y){
+    var r=stageEl.getBoundingClientRect(); x-=r.left; y-=r.top;
+    var hit=null, near=null, nd=1e9;
+    nodes.forEach(function(n){
+      var h=n._hit; if(!h||!h.live) return;
+      var d=Math.hypot(x-h.x,y-h.y);
+      if(d<=h.r && (!hit || h.z>hit._hit.z)) hit=n;              // inside an orb: the one nearest the camera wins
+      var slop=Math.max(h.r+14,26); if(d<=slop && d/slop<nd){ nd=d/slop; near=n; }   // forgiving finger-sized margin
+    });
+    return hit||near;
+  }
+  stageEl.addEventListener('pointerdown',function(e){ tap=e.pointerType==='mouse'?null:{x:e.clientX,y:e.clientY,t:e.timeStamp,id:e.pointerId}; },{passive:true});
+  stageEl.addEventListener('pointercancel',function(){ tap=null; });
+  stageEl.addEventListener('pointerup',function(e){
+    if(!tap||e.pointerId!==tap.id) return; var t=tap; tap=null;
+    if(Math.hypot(e.clientX-t.x,e.clientY-t.y)>12 || e.timeStamp-t.t>600) return;   // a scroll or long press, not a tap
+    if(e.target.closest('.bar,.compass') || (fin.style.visibility==='visible' && e.target.closest('.final .card'))) return;
+    var n=orbAt(e.clientX,e.clientY);
+    if(n){ swallow=Date.now(); open(n.dataset.key); }
+    else if(e.target.closest('.node')) swallow=Date.now();     // browser thinks an orb is here but none is drawn here: ignore
+  });
+  // drop the click the browser synthesises from that tap, so it can't open a different panel
+  document.addEventListener('click',function(e){ if(swallow && Date.now()-swallow<800){ e.preventDefault(); e.stopImmediatePropagation(); swallow=0; } },true);
 
   // pointer parallax (mouse only)
   if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
