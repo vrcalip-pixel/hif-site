@@ -97,7 +97,7 @@ body.lit .lightfore i{opacity:1}
 
 /* nodes */
 .node{position:absolute;width:0;height:0;pointer-events:none}
-.node a{position:absolute;left:0;top:0;pointer-events:auto;display:flex;align-items:center;gap:.7rem;text-decoration:none;color:#fff;transform:translate(calc(var(--s,72px) / -2),-50%)}
+.node a{position:absolute;left:0;top:0;pointer-events:none;display:flex;align-items:center;gap:.7rem;text-decoration:none;color:#fff;transform:translate(calc(var(--s,72px) / -2),-50%)}
 @property --sheen{syntax:'<angle>';inherits:false;initial-value:0deg}
 .orb{position:relative;width:var(--s,72px);height:var(--s,72px);border-radius:50%;flex:none;
   background:
@@ -130,7 +130,10 @@ body.lit .orb::before{inset:-95%;opacity:.8}
 .tag{background:rgba(6,17,40,.94);border:1px solid var(--line);border-radius:999px;padding:.55rem .95rem;font-weight:600;font-size:.95rem;white-space:nowrap;
   opacity:var(--tp,0);transform:translateX(calc((1 - var(--tp,0)) * -12px));pointer-events:none;transition:opacity .25s ease,transform .25s ease}
 .tag small{display:block;font-weight:400;color:var(--ink-2);font-size:.78rem;line-height:1.1}
+/* only the orb (and, with a mouse, its visible label) takes clicks, never the link's invisible box */
+.node .orb{pointer-events:auto}
 .node.on .tag{pointer-events:auto}
+@media (hover:none){.node.on .tag{pointer-events:none}}   /* touch: a label must never swallow a tap meant for a neighbouring orb */
 .node a:hover .tag,.node a:focus-visible .tag{opacity:1;transform:none}
 .node.gold{--c1:#F7D06A;--c2:#E9B33C;--c3:#9A6F14}
 .node.coral{--c1:#FF8A7A;--c2:#E4483C;--c3:#8E1F16}
@@ -154,7 +157,7 @@ body.lit .orb::before{inset:-95%;opacity:.8}
 @media (prefers-reduced-motion:reduce){.cue i{animation:none}}
 
 /* final card */
-.final{position:absolute;inset:0;display:grid;place-items:center;padding:1.5rem;pointer-events:none;opacity:0}
+.final{position:absolute;inset:0;display:grid;place-items:center;padding:1.5rem;pointer-events:none;opacity:0;visibility:hidden}
 .final .card{pointer-events:auto;background:rgba(6,17,40,.9);border:1px solid var(--line);border-radius:22px;padding:2rem 2.25rem;max-width:560px;text-align:center}
 .final .date{font-size:clamp(3rem,8vw,5rem);font-weight:800;color:var(--gold);letter-spacing:-.04em;line-height:.9}
 .final .where{margin:.6rem 0 1.4rem;color:var(--ink-2)}
@@ -733,7 +736,7 @@ footer a{color:#fff}
     nodes.forEach(function(n){ place(n,+n.dataset.d,cam,true); });
     var t=Math.max(0,1-p/0.11); title.style.opacity=t; dim.style.opacity=Math.max(0,1-p/0.55); title.style.transform='translateY('+(-40*(1-t))+'px) scale('+(1+0.08*(1-t))+')';
     cue.style.opacity=Math.max(0,1-p/0.08);
-    var f=Math.max(0,(p-0.86)/0.12); fin.style.opacity=f; fin.style.transform='scale('+(0.9+0.1*f)+')';
+    var f=Math.max(0,(p-0.86)/0.12); fin.style.opacity=f; fin.style.visibility=f>0.02?'visible':'hidden'; fin.style.transform='scale('+(0.9+0.1*f)+')';
     // active compass = nearest node
     var best=null,bd=1e9; nodes.forEach(function(n){ var d=Math.abs(cam-n.dataset.d); if(d<bd){bd=d;best=n.dataset.key;} });
     if(!openKey) setCur(bd<260?best:null);
