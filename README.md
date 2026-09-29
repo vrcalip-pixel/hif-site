@@ -4,7 +4,7 @@ Immersive single-page site for the LARC Human Intelligence Festival (Nov 6, 2026
 Live at https://humanintelligencefestival.la (GitHub Pages).
 
 ## Structure
-- `index.html` — the whole site: pinned 3D scroll scene, orb navigation, overlay panels (`#expect`, `#students`, `#faculty`, `#employers`, `#sponsor`, `#register`), Ambiance toggle.
+- `index.html` — the whole site: pinned 3D scroll scene, bubble navigation, overlay panels (`#expect`, `#students`, `#faculty`, `#employers`, `#sponsor`, `#register`), Ambiance toggle.
 - `assets/hero.webp` — banner used for the reduced-motion / no-JS fallback (and social previews).
 - `CNAME` — custom domain for GitHub Pages. Do not delete.
 
