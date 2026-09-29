@@ -155,6 +155,11 @@ body.lit .orb::before{inset:-95%;opacity:.8}
 .title p{margin:1.1rem 0 0;color:#E8EDF8;font-weight:500;font-size:clamp(1rem,1.6vw,1.2rem)}
 .cue{position:absolute;bottom:calc(1.6rem + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);color:rgba(203,213,234,.75);font-size:.8rem;letter-spacing:.02em;display:flex;flex-direction:column;align-items:center;gap:.35rem;pointer-events:none}
 .cue i{width:1px;height:40px;background:linear-gradient(rgba(233,179,60,.85),rgba(233,179,60,0));animation:cue 2.4s ease-in-out infinite}
+.cue-pill{display:flex;flex-direction:column;align-items:center;gap:.1rem;padding:.5rem 1rem;border-radius:999px;background:rgba(6,17,40,.62);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 10px 30px rgba(0,0,0,.3);white-space:nowrap}
+.cue-t{color:#fff;font-weight:600;font-size:.84rem;letter-spacing:.03em}
+.cue-sub{color:var(--gold);font-size:.7rem;font-weight:500;letter-spacing:.06em;max-height:0;opacity:0;overflow:hidden;transition:max-height .5s ease,opacity .5s ease}
+.cue.deep .cue-sub{max-height:1.2em;opacity:1}
+@media (max-width:760px){.cue{bottom:calc(3.6rem + env(safe-area-inset-bottom,0px))}.cue i{height:26px}}
 @keyframes cue{0%{transform:scaleY(0);transform-origin:top;opacity:0}40%{transform:scaleY(1);transform-origin:top;opacity:1}41%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom;opacity:.4}}
 @media (prefers-reduced-motion:reduce){.cue i{animation:none}}
 
@@ -357,7 +362,7 @@ footer a{color:#fff}
         </div>
       </div>
     </div>
-    <div class="cue" id="cue"><i></i>Scroll to enter</div>
+    <div class="cue" id="cue" aria-hidden="true"><i></i><span class="cue-pill"><span class="cue-t" id="cueText">Scroll to explore</span><small class="cue-sub" id="cueSub">Tap any orb to open it</small></span></div>
 
     <div class="final" id="final">
       <div class="card">
@@ -767,7 +772,7 @@ footer a{color:#fff}
   var P=1000, TRAVEL=1500;                 // perspective px, camera travel px
   var layers=[].slice.call(document.querySelectorAll('.layer'));
   var nodes=[].slice.call(document.querySelectorAll('.node[data-key]'));
-  var dim=document.getElementById('dim'), title=document.getElementById('title'), cue=document.getElementById('cue'), fin=document.getElementById('final');
+  var cueText=document.getElementById('cueText'), dim=document.getElementById('dim'), title=document.getElementById('title'), cue=document.getElementById('cue'), fin=document.getElementById('final');
 
   // position nodes and prime layers
   nodes.forEach(function(n,i){ n.style.left=n.dataset.x+'%'; n.style.top=n.dataset.y+'%'; n._fl={s:0.8+i*0.17,p:i*1.7,a:7+i*1.5}; });
@@ -815,7 +820,9 @@ footer a{color:#fff}
     layers.forEach(function(l){ place(l,+l.dataset.d,cam,false); });
     nodes.forEach(function(n){ place(n,+n.dataset.d,cam,true); });
     var t=Math.max(0,1-p/0.11); title.style.opacity=t; dim.style.opacity=Math.max(0,1-p/0.55); title.style.transform='translateY('+(-40*(1-t))+'px) scale('+(1+0.08*(1-t))+')';
-    cue.style.opacity=Math.max(0,1-p/0.08);
+    // wayfinding cue: stays up for the whole journey, changes its message once the orbs appear, bows out at the end card
+    cue.style.opacity=p<0.84?1:Math.max(0,1-(p-0.84)/0.04);
+    var deep=p>0.06; if(deep!==cue._deep){ cue._deep=deep; cue.classList.toggle("deep",deep); cueText.textContent=deep?"Keep scrolling to discover more":"Scroll to explore"; }
     var f=Math.max(0,(p-0.86)/0.12); fin.style.opacity=f; fin.style.visibility=f>0.02?'visible':'hidden'; fin.style.transform='scale('+(0.9+0.1*f)+')';
     // active compass = nearest node
     var best=null,bd=1e9; nodes.forEach(function(n){ var d=Math.abs(cam-n.dataset.d); if(d<bd){bd=d;best=n.dataset.key;} });
