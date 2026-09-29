@@ -1,6 +1,6 @@
 # Human Intelligence Festival — landing page
 
-Immersive single-page site for the LARC Human Intelligence Festival (Nov 6, 2026, The Magic Box, DTLA).
+Immersive single-page site for the LARC Human Intelligence Festival (Nov 6, 2026, Magic Box, DTLA).
 Live at https://humanintelligencefestival.la (GitHub Pages).
 
 ## Structure
