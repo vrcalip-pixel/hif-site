@@ -99,9 +99,28 @@ body.lit .lightfore i{opacity:1}
 /* nodes */
 .node{position:absolute;width:0;height:0;pointer-events:none}
 .node a{position:absolute;left:0;top:0;pointer-events:auto;display:flex;align-items:center;gap:.7rem;text-decoration:none;color:#fff;transform:translate(calc(var(--s,72px) / -2),-50%)}
+@property --sheen{syntax:'<angle>';inherits:false;initial-value:0deg}
 .orb{position:relative;width:var(--s,72px);height:var(--s,72px);border-radius:50%;flex:none;
-  background:radial-gradient(circle at 30% 26%,rgba(255,255,255,.95) 0%,rgba(255,255,255,.25) 18%,transparent 34%),radial-gradient(circle at 36% 32%,var(--c1) 0%,var(--c2) 48%,var(--c3) 100%);
+  background:
+    /* specular hot spot + soft window reflection */
+    radial-gradient(circle at 31% 25%,rgba(255,255,255,1) 0%,rgba(255,255,255,.75) 4%,rgba(255,255,255,0) 11%),
+    radial-gradient(ellipse 48% 30% at 40% 22%,rgba(255,255,255,.42) 0%,rgba(255,255,255,.12) 55%,rgba(255,255,255,0) 75%),
+    /* slow iridescent sheen drifting over the surface */
+    conic-gradient(from var(--sheen) at 50% 50%,rgba(255,255,255,0) 0deg,rgba(255,255,255,.10) 40deg,rgba(255,255,255,0) 90deg,rgba(255,255,255,0) 200deg,rgba(255,255,255,.06) 250deg,rgba(255,255,255,0) 300deg),
+    /* bounce light on the underside */
+    radial-gradient(ellipse 62% 26% at 56% 93%,color-mix(in srgb,var(--c1) 75%,transparent) 0%,rgba(0,0,0,0) 100%),
+    /* body: lit face rolling into a deep terminator */
+    radial-gradient(circle at 36% 30%,var(--c1) 0%,var(--c2) 38%,var(--c3) 74%,color-mix(in srgb,var(--c3) 45%,#01040c) 100%);
+  box-shadow:
+    inset calc(var(--s,72px) * -.09) calc(var(--s,72px) * -.13) calc(var(--s,72px) * .22) rgba(1,4,14,.55),
+    inset calc(var(--s,72px) * .05) calc(var(--s,72px) * .06) calc(var(--s,72px) * .12) rgba(255,255,255,.28),
+    inset 0 0 0 1px rgba(255,255,255,.14),
+    0 calc(var(--s,72px) * .22) calc(var(--s,72px) * .45) rgba(0,0,0,.42),
+    0 0 calc(var(--s,72px) * .35) color-mix(in srgb,var(--c2) 55%,transparent);
+  animation:sheen 22s linear infinite;
 }
+@keyframes sheen{to{--sheen:360deg}}
+@media (prefers-reduced-motion:reduce){.orb{animation:none}}
 .orb::before{content:"";position:absolute;inset:-55%;border-radius:50%;background:radial-gradient(circle,var(--c1) 0%,transparent 62%);opacity:.38;z-index:-1}
 .node.on .orb::before{inset:-85%;opacity:.7}
 body.lit .orb::before{inset:-95%;opacity:.8}
@@ -109,9 +128,11 @@ body.lit .orb::before{inset:-95%;opacity:.8}
 .node.on .orb::after{opacity:.9;animation:pulse 1.8s ease-out infinite}
 @keyframes pulse{0%{inset:-10px;opacity:.9}100%{inset:-34px;opacity:0}}
 @media (prefers-reduced-motion:reduce){.node.on .orb::after{animation:none;opacity:.7}}
-.tag{background:rgba(6,17,40,.94);border:1px solid var(--line);border-radius:999px;padding:.55rem .95rem;font-weight:600;font-size:.95rem;white-space:nowrap;display:none}
+.tag{background:rgba(6,17,40,.94);border:1px solid var(--line);border-radius:999px;padding:.55rem .95rem;font-weight:600;font-size:.95rem;white-space:nowrap;
+  opacity:var(--tp,0);transform:translateX(calc((1 - var(--tp,0)) * -12px));pointer-events:none;transition:opacity .25s ease,transform .25s ease}
 .tag small{display:block;font-weight:400;color:var(--ink-2);font-size:.78rem;line-height:1.1}
-.node.on .tag,.node a:hover .tag,.node a:focus-visible .tag{display:block}
+.node.on .tag{pointer-events:auto}
+.node a:hover .tag,.node a:focus-visible .tag{opacity:1;transform:none}
 .node.gold{--c1:#F7D06A;--c2:#E9B33C;--c3:#9A6F14}
 .node.coral{--c1:#FF8A7A;--c2:#E4483C;--c3:#8E1F16}
 .node.blue{--c1:#7FB2FF;--c2:#2D7BE5;--c3:#0E2C7A}
@@ -695,6 +716,9 @@ footer a{color:#fff}
       el.style.transform='translate3d('+(fx*(P-z)/P).toFixed(1)+'px,'+(fy*(P-z)/P).toFixed(1)+'px,'+z+'px) scale('+sN.toFixed(3)+')';
       var near=Math.abs(z)<260;
       el.classList.toggle('on',near);
+      // label fades in as you approach the orb (and back out once you've passed it)
+      var tp=Math.max(0,Math.min(1,(380-Math.abs(z))/180)); tp=tp*tp*(3-2*tp);
+      el.style.setProperty('--tp',tp.toFixed(3));
       var gone = z>P*0.85;               // behind you now
       el.style.opacity=1; el.style.visibility=gone?'hidden':'visible';
       el.style.pointerEvents=gone?'none':'';
