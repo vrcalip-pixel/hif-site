@@ -7,7 +7,7 @@
 <meta name="description" content="Human Intelligence Festival: Hiring Humans. Not your ordinary A.I. event — a human-first festival exploring the capabilities that help people learn, lead, and succeed in an AI-enabled world. November 6, 2026 at Magic Box, Downtown Los Angeles. Presented by the Los Angeles Regional Consortium.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   box-sizing:border-box;
@@ -164,11 +164,13 @@ body.lit .orb::before{inset:-95%;opacity:.8}
 @media (prefers-reduced-motion:reduce){.cue i{animation:none}}
 
 /* title card: light lockup (white card, navy border, eye, bold navy wordmark, light countdown) */
-.title .plate.light{background:#fff;border:2px solid #0B1B3A;box-shadow:0 30px 80px rgba(0,0,0,.45);max-width:min(92vw,680px);padding:clamp(1.1rem,3vw,1.7rem) clamp(1.3rem,4vw,2.6rem) clamp(1.2rem,3vw,1.7rem)}
-.plate.light .eye{display:block;width:min(50%,250px);height:auto;margin:0 auto .35rem}
-.title .plate.light h1{color:#0B1B3A;text-shadow:none;font-size:clamp(2.4rem,6.4vw,4.4rem);line-height:.98}
-.title .plate.light h1 span{display:block;color:inherit;font-weight:800;font-size:1em;margin:0}
-.title .plate.light h1 .fest{color:#E07A2F;font-size:.8em;margin-top:.06em}
+.title .plate.light{background:#fff;border:2px solid #0B1B3A;box-shadow:0 30px 80px rgba(0,0,0,.45);max-width:min(92vw,760px);padding:clamp(1.1rem,3vw,1.7rem) clamp(1.3rem,4vw,2.6rem) clamp(1.2rem,3vw,1.7rem)}
+.plate.light .eye{display:block;width:min(64%,340px);height:auto;margin:0 auto .3rem}
+/* approved festival lockup: Quicksand, orange Human/Festival, blue Intelligence, bold blue HIRING HUMANS */
+.title .plate.light h1{font-family:"Quicksand",var(--font);font-weight:500;color:#0A4FA2;text-shadow:none;font-size:clamp(1.65rem,4vw,2.7rem);line-height:1.12;letter-spacing:0}
+.title .plate.light h1 span{display:inline;color:inherit;font-weight:500;font-size:1em;margin:0}
+.title .plate.light h1 .w-or{color:#D0703A}
+.title .plate.light p.hh{margin:.15rem 0 0;font-family:"Quicksand",var(--font);font-weight:700;font-size:clamp(1.35rem,3.1vw,2.05rem);letter-spacing:.02em;text-transform:uppercase;color:#004AA5}
 .title .plate.light p{margin-top:.9rem;color:#1E2B4A;font-weight:500;font-size:clamp(.8rem,1.3vw,.95rem)}
 .plate.light .cd-label{color:#5B6785}
 .plate.light .cd-label::before,.plate.light .cd-label::after{background:linear-gradient(90deg,rgba(11,27,58,0),rgba(11,27,58,.4))}
@@ -176,6 +178,22 @@ body.lit .orb::before{inset:-95%;opacity:.8}
 .plate.light .cd-num,.plate.light .cd-s .cd-num{color:#0B1B3A;text-shadow:none}
 .plate.light .cd-cap{color:#6B7690}
 .plate.light .cd-sep{background:#0B1B3A;box-shadow:none;opacity:.45}
+
+/* light scene: white background, colored bands kept, no space elements (stars, comets, orbits, vignette) */
+.brand .logo-on-light{display:none}
+body.scene-light .brand .logo-on-dark{display:none}
+body.scene-light .brand .logo-on-light{display:block}
+body.scene-light .brand img{filter:none}
+body.scene-light .bar{background:rgba(255,255,255,.94);box-shadow:0 1px 0 rgba(11,27,58,.08),0 6px 20px rgba(11,27,58,.06)}
+body.scene-light .stage{background:linear-gradient(180deg,#FFFFFF 0%,#F4F6FB 55%,#E8EDF6 100%)}
+body.scene-light .comets,body.scene-light .dim,body.scene-light .sky{display:none}
+body.scene-light .layer[data-d="1050"]{display:none}
+body.scene-light .layer .st{display:none}
+body.scene-light .grain{opacity:.035}
+body.scene-light .title .plate.light{box-shadow:0 24px 60px rgba(11,27,58,.18)}
+body.scene-light .compass a i{box-shadow:0 0 0 2px rgba(11,27,58,.22)}
+body.scene-light .compass a.cur i{box-shadow:0 0 0 3px rgba(11,27,58,.35)}
+body.scene-light .final .card{background:#0B1B3A;box-shadow:0 30px 70px rgba(11,27,58,.35)}
 
 /* countdown */
 .countdown{margin:1.35rem auto 0;text-align:center}
@@ -299,13 +317,13 @@ footer{padding:2rem 1.5rem calc(2rem + env(safe-area-inset-bottom,0px));text-ali
 footer a{color:#fff}
 </style>
 </head>
-<body>
+<body><!-- light background parked: add class="scene-light" to <body> to turn it on -->
 <!-- Magic Box wordmark (venue logo, from magicboxla.com brand SVG) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><path id="mb-wordmark" d="M13.21,6.6h20.37l21.75,42.99L77.08,6.6h20.38l13.08,93.96h-26.05l-6.17-44.05-22.99,39.5-22.99-39.5-6.23,44.05H0L13.21,6.6ZM160.02,0l50.66,100.57h-27.42l-5.61-11.9h-35.27l-5.61,11.9h-27.42L160.02,0ZM166.12,64.68l-6.11-12.65-6.04,12.65h12.15ZM201.16,53.65c0-29.16,21.81-48.35,50.03-48.35,23.24,0,42.25,13.08,48.1,34.15h-29.72c-4.18-5.42-10.84-8.6-18.38-8.6-12.84,0-23.05,9.1-23.05,22.8,0,15.02,10.22,24.11,23.05,24.11,8.29,0,15.89-3.86,19.56-10.28h-22.8v-21.37h52.96c.25,1.99.31,5.42.31,7.54,0,29.16-21.81,48.35-50.03,48.35s-50.03-19.19-50.03-48.35ZM304.68,6.6h25.11v93.96h-25.11V6.6ZM333.51,53.65c0-29.16,21.81-48.35,50.03-48.35,25.36,0,45.55,15.45,49.41,39.88h-27.85c-3.24-8.91-11.65-14.33-21.56-14.33-12.84,0-23.05,9.1-23.05,22.8s10.22,22.81,23.05,22.81c9.91,0,18.32-5.48,21.56-14.33h27.85c-3.86,24.36-24.05,39.88-49.41,39.88-28.23,0-50.03-19.19-50.03-48.35ZM452.04,6.6h35.33c23.99,0,33.09,8.79,33.09,24.3,0,9.47-5.42,16.95-11.34,20,10.84,3.61,16.14,9.66,16.14,22.06,0,17.26-9.28,27.6-33.34,27.6h-39.88V6.6ZM489.55,41.93c3.05,0,5.3-1.99,5.3-5.55s-2.24-5.73-5.3-5.73h-12.4v11.28h12.4ZM492.54,76.52c4.05,0,6.04-2.06,6.04-5.67s-1.99-5.67-6.04-5.67h-15.39v11.34h15.39ZM524.69,53.65c0-29.1,21.81-48.35,50.04-48.35s50.03,19.25,50.03,48.35-21.81,48.35-50.03,48.35-50.04-19.19-50.04-48.35ZM597.72,53.65c0-13.77-10.22-22.74-22.99-22.74s-23.06,8.97-23.06,22.74,10.22,22.81,23.06,22.81,22.99-9.1,22.99-22.81ZM648.04,53.27l-34.52-46.67h30.84l19.19,25.92,19.5-25.92h30.41l-34.77,46.3,35.27,47.67h-30.91l-19.94-26.92-20.25,26.92h-30.35l35.51-47.29Z"/></defs></svg>
 <a class="sr" href="#menu">Skip to festival menu</a>
 
 <header class="bar">
-  <a class="brand" href="https://losangelesrc.org/" target="_blank" rel="noopener"><img src="assets/larc-logo.png" width="623" height="215" alt="LARC, Los Angeles Regional Consortium (opens in a new tab)"></a>
+  <a class="brand" href="https://losangelesrc.org/" target="_blank" rel="noopener"><img class="logo-on-dark" src="assets/larc-logo.png" width="623" height="215" alt="LARC, Los Angeles Regional Consortium (opens in a new tab)"><img class="logo-on-light" src="assets/larc-logo-dark.png" width="623" height="215" alt="LARC, Los Angeles Regional Consortium (opens in a new tab)"></a>
   <div style="display:flex;gap:.5rem;align-items:center">
     <a class="btn btn-gold" href="#register" style="padding:.65rem 1.1rem;font-size:.9rem">Register</a>
     <!-- Ambiance is parked until a festival tune is chosen: remove "hidden" to bring it back -->
@@ -369,7 +387,8 @@ footer a{color:#fff}
     <div class="title" id="title">
       <div class="plate light">
         <img class="eye" src="assets/hif-eye.jpg" width="940" height="380" alt="">
-        <h1><span>Human</span> <span>Intelligence</span> <span class="fest">Festival</span></h1>
+        <h1><span class="w-or">Human</span> <span>Intelligence</span> <span class="w-or">Festival</span></h1>
+        <p class="hh">Hiring Humans</p>
         <p>November 6, 2026 · <svg class="mb" role="img" aria-label="Magic Box" viewBox="0 0 714 102"><use href="#mb-wordmark"/></svg>, Downtown Los Angeles · Presented by LARC</p>
         <div class="countdown" data-countdown role="timer">
           <div class="cd-label"><span data-cd-label>Doors open in</span></div>
@@ -731,7 +750,7 @@ footer a{color:#fff}
 
   /* ---------- comets (ambient) ---------- */
   var cv=document.getElementById('comets');
-  if(cv && !reduce){
+  if(cv && !reduce && !document.body.classList.contains('scene-light')){
     var cx=cv.getContext('2d'), W,H, comets=[];
     function size(){ W=cv.width=cv.clientWidth*devicePixelRatio; H=cv.height=cv.clientHeight*devicePixelRatio; }
     size(); addEventListener('resize',size);
