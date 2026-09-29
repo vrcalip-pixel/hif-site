@@ -15,7 +15,7 @@ Live at https://humanintelligencefestival.la (GitHub Pages).
 ## Editing content
 All copy lives in the overlay panels near the bottom of `index.html`. Sponsorship tiers are in `#ov-sponsor`.
 Registration form is a prototype: point `#regform` at a real endpoint (Formspree, Google Form, Eventbrite embed) before launch.
-Ambiance music: drop a licensed MP3 in `assets/` and set `src` on `<audio id="ambTrack">`; the generative synth is used only when no `src` is set.
+Ambiance (currently parked: the button has the `hidden` attribute in `index.html`; remove it to restore). Music: drop a licensed MP3 in `assets/` and set `src` on `<audio id="ambTrack">`; the generative synth is used only when no `src` is set.
 
 ## Deploy
 Push to `main`. GitHub Pages serves the root of `main`.
